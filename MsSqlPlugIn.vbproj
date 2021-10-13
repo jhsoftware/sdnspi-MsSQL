@@ -81,12 +81,6 @@
     <Import Include="System.Diagnostics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ctlTTL.designer.vb">
-      <DependentUpon>ctlTTL.vb</DependentUpon>
-    </Compile>
-    <Compile Include="ctlTTL.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="frmBuildSelect.Designer.vb">
       <DependentUpon>frmBuildSelect.vb</DependentUpon>
     </Compile>
@@ -124,9 +118,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ctlTTL.resx">
-      <DependentUpon>ctlTTL.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmBuildSelect.resx">
       <DependentUpon>frmBuildSelect.vb</DependentUpon>
       <SubType>Designer</SubType>
