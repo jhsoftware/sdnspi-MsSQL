@@ -36,11 +36,11 @@ Public Class MsSqlPlugIn
   End Sub
 #End Region
 
-  Public Function GetPlugInTypeInfo() As JHSoftware.SimpleDNS.Plugin.IPlugInBase.PlugInTypeInfo Implements JHSoftware.SimpleDNS.Plugin.IPlugInBase.GetPlugInTypeInfo
+  Public Function GetPlugInTypeInfo() As JHSoftware.SimpleDNS.Plugin.IPlugInBase.PlugInTypeInfo Implements JHSoftware.SimpleDNS.Plugin.IPlugInBase.GetTypeInfo
     With GetPlugInTypeInfo
       .Name = "MS SQL Server"
       .Description = "Fetches host records from a Microsoft SQL server"
-      .InfoURL = "https://simpledns.plus/kb/181/ms-sql-server-plug-in"
+      .InfoURL = "https://simpledns.plus/plugin-mssql"
     End With
   End Function
 
@@ -67,7 +67,7 @@ Public Class MsSqlPlugIn
     Next
   End Sub
 
-  Public Async Function LookupHost(name As DomName, ipv6 As Boolean, req As IDNSRequest) As Threading.Tasks.Task(Of JHSoftware.SimpleDNS.Plugin.LookupResult(Of SdnsIP)) Implements JHSoftware.SimpleDNS.Plugin.ILookupHost.LookupHost
+  Public Async Function LookupHost(name As DomName, ipv6 As Boolean, req As IRequestContext) As Threading.Tasks.Task(Of JHSoftware.SimpleDNS.Plugin.LookupResult(Of SdnsIP)) Implements JHSoftware.SimpleDNS.Plugin.ILookupHost.LookupHost
     Dim selStr = If(ipv6, SelectFwd6, SelectFwd4)
     If String.IsNullOrEmpty(selStr) Then Return Nothing
     Using dbConn = New SqlConnection(dbConnStr)
@@ -86,7 +86,7 @@ Public Class MsSqlPlugIn
     End Using
   End Function
 
-  Public Async Function LookupReverse(ip As SdnsIP, req As IDNSRequest) As Threading.Tasks.Task(Of LookupResult(Of DomName)) Implements JHSoftware.SimpleDNS.Plugin.ILookupReverse.LookupReverse
+  Public Async Function LookupReverse(ip As SdnsIP, req As IRequestContext) As Threading.Tasks.Task(Of LookupResult(Of DomName)) Implements JHSoftware.SimpleDNS.Plugin.ILookupReverse.LookupReverse
     Dim selStr = If(ip.IsIPv4, SelectRev4, SelectRev6)
     If String.IsNullOrEmpty(selStr) Then Return Nothing
     Using dbConn = New SqlConnection(dbConnStr)
